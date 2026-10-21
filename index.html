@@ -4,306 +4,220 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>NEXUS LTDA</title>
-<meta name="description" content="Jogo de terror cooperativo num escritório à noite. Até 10 amigos, um ceifador do RH e o fechamento do mês.">
+<meta name="description" content="Terror cooperativo num escritório à noite. Até 10 amigos, uma lanterna e o fechamento do mês.">
 <meta property="og:title" content="NEXUS LTDA">
 <meta property="og:description" content="O expediente acabou. Você não.">
-<meta property="og:image" content="img/blk.jpg">
+<meta property="og:image" content="img/abertura.jpg">
 <link rel="icon" href="favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  /* O site do NEXUS LTDA: escuro como o jogo (a tela é sempre de noite no escritório), o vermelho-sangue
-     do menu como única cor de destaque e o título na mesma fonte serifada do jogo. */
+  /* O site do NEXUS LTDA, opção "Lanterna": tudo escuro e só aparece o que a luz da lanterna pega.
+     Sem spoiler: nada do que acontece depois do prédio (elevador, garagem, armas, ônibus). */
   :root {
-    --fundo: #0d0d0e;
-    --fundo-2: #151416;
-    --linha: #2a2729;
-    --texto: #d8d5cf;
-    --texto-fraco: #9a968f;
-    --realce: #f3f1ea;
-    --sangue: #9e1410;
-    --sangue-claro: #c8261f;
+    --fundo: #07080a;
+    --fundo-2: #0c0d10;
+    --linha: #1d1e22;
+    --texto: #cfcabd;
+    --texto-fraco: #9a958a;
+    --realce: #f1ece0;
+    --sangue: #a3150f;
+    --sangue-claro: #e0473e;
+    --pilha: #e8cf6a;
     --raio: 6px;
-    --titulo: Georgia, "Times New Roman", serif;
-    --corpo: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+    --luz-x: 50%;
+    --luz-y: 48%;
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body {
-    margin: 0;
-    background: var(--fundo);
-    color: var(--texto);
-    font: 17px/1.65 var(--corpo);
-    -webkit-font-smoothing: antialiased;
-  }
-  /* o grão da câmera do jogo, por cima de tudo (fixo: não repinta ao rolar) */
-  body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 50;
-    opacity: .06;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
+  body { margin: 0; background: var(--fundo); color: var(--texto); font: 18px/1.65 "Barlow", "Segoe UI", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
   img { display: block; max-width: 100%; height: auto; }
-  a { color: inherit; }
-  .miolo { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 24px; }
-
-  /* topo */
-  .topo { height: 64px; display: flex; align-items: center; justify-content: space-between; }
-  .marca { font: 700 20px/1 var(--titulo); letter-spacing: .12em; color: var(--realce); text-decoration: none; }
-  .topo nav { display: flex; gap: 28px; font-size: 15px; }
-  .topo nav a { text-decoration: none; color: var(--texto-fraco); }
-  .topo nav a:hover { color: var(--realce); }
-
-  /* abertura */
-  .abertura {
-    min-height: calc(100dvh - 64px);
-    display: grid;
-    grid-template-columns: 5fr 7fr;
-    gap: 48px;
-    align-items: center;
-    padding: 24px 0 64px;
-  }
-  .abertura h1 {
-    font: 700 clamp(56px, 8vw, 104px)/.95 var(--titulo);
-    letter-spacing: .06em;
-    color: var(--realce);
-    margin: 0 0 18px;
-    text-shadow: 3px 3px 0 rgba(115, 4, 4, .85);
-  }
-  .risco { width: 120px; height: 3px; background: var(--sangue); margin: 0 0 22px; }
-  .abertura p { font-size: 20px; color: var(--texto-fraco); margin: 0 0 34px; max-width: 30ch; }
-  .botoes { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
-  .botao {
-    display: inline-block;
-    padding: 15px 30px;
-    border-radius: var(--raio);
-    font: 700 18px/1 var(--titulo);
-    letter-spacing: .04em;
-    text-decoration: none;
-    white-space: nowrap;
-    transition: transform .2s cubic-bezier(.16, 1, .3, 1), background-color .2s;
-  }
+  a { color: #e9e4d6; }
+  a:hover { color: #fff; }
+  h1, h2, h3 { font-family: "Playfair Display", Georgia, serif; color: var(--realce); margin: 0; }
+  .miolo { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+  .botao { display: inline-block; padding: 17px 32px; border-radius: var(--raio); font-weight: 600; font-size: 19px; text-decoration: none; white-space: nowrap; transition: transform .2s cubic-bezier(.16,1,.3,1), background-color .2s; }
   .botao:active { transform: translateY(1px) scale(.98); }
-  .botao.principal { background: var(--sangue); color: #fbf6f2; }
-  .botao.principal:hover { background: var(--sangue-claro); }
-  .botao.leve { color: var(--texto); border: 1px solid var(--linha); }
-  .botao.leve:hover { border-color: var(--texto-fraco); }
-  .botao[aria-disabled="true"] { background: #3a3536; color: #c9c4bd; cursor: not-allowed; }
-  .aviso-link { font-size: 14px; color: var(--texto-fraco); margin-top: 14px; }
-  .foto-abertura {
-    border-radius: var(--raio);
-    overflow: hidden;
-    border: 1px solid var(--linha);
-    box-shadow: 0 30px 80px rgba(0, 0, 0, .6);
-    transform: rotate(.6deg);
-  }
+  .principal { background: var(--sangue); color: #fff6f1; }
+  .principal:hover { background: #c01d16; color: #fff; }
+  .leve { border: 1px solid rgba(236,231,218,.35); color: #ece7da; }
+  .leve:hover { border-color: rgba(236,231,218,.7); }
 
-  /* história: a foto inteira e o texto por cima, embaixo */
-  .historia { position: relative; margin-top: 40px; margin-bottom: 120px; border-radius: var(--raio); overflow: hidden; border: 1px solid var(--linha); }
-  .historia img { width: 100%; aspect-ratio: 16 / 7; object-fit: cover; object-position: left center; filter: brightness(.8); }
-  /* o texto do lado direito (o relógio fica à esquerda); no celular vai para baixo */
-  .historia .texto {
-    position: absolute; inset: 0 0 0 auto; width: 52%;
-    display: flex; flex-direction: column; justify-content: center;
-    padding: 48px clamp(24px, 5vw, 64px);
-    background: linear-gradient(to left, rgba(10, 9, 10, .97) 55%, transparent);
-  }
-  .historia h2, .secao h2 {
-    font: 700 clamp(30px, 4vw, 44px)/1.1 var(--titulo);
-    color: var(--realce);
-    margin: 0 0 14px;
-  }
-  .historia p { margin: 0; max-width: 62ch; font-size: 18px; }
+  /* abertura: a cena do menu do jogo, e a luz da lanterna em cima dela */
+  .abertura { position: relative; min-height: min(100dvh, 940px); overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
+  .abertura > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; }
+  .abertura .luz { position: absolute; inset: 0; background: radial-gradient(ellipse at var(--luz-x) var(--luz-y), rgba(7,8,10,0) 0, rgba(7,8,10,.1) 220px, rgba(7,8,10,.86) 520px, var(--fundo) 760px); }
+  .topo { position: relative; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; padding-top: 28px; padding-bottom: 28px; }
+  .marca { font-family: "Playfair Display", Georgia, serif; font-weight: 700; font-size: 22px; letter-spacing: .16em; color: #ece7da; text-decoration: none; }
+  .topo nav { display: flex; gap: 28px; font-size: 16px; font-weight: 500; }
+  .topo nav a { text-decoration: none; }
+  .chamada { position: relative; display: flex; flex-direction: column; gap: 22px; padding-bottom: 88px; }
+  .chamada h1 { font-weight: 900; font-size: clamp(64px, 9vw, 112px); line-height: .92; text-shadow: 4px 4px 0 #5c0b08; }
+  .chamada p { margin: 0; font-size: 22px; line-height: 1.5; max-width: 30ch; color: #d9d4c6; }
+  .botoes { display: flex; flex-wrap: wrap; gap: 14px; }
 
-  /* o que tem no jogo: grade com tamanhos diferentes (5 coisas, 5 quadros) */
-  .secao { margin-bottom: 120px; }
-  .grade {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-auto-rows: minmax(240px, auto);
-    gap: 16px;
-    margin-top: 32px;
-  }
-  .quadro {
-    position: relative;
-    border-radius: var(--raio);
-    overflow: hidden;
-    border: 1px solid var(--linha);
-    background: var(--fundo-2);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-  }
-  .quadro img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(.6); transition: transform .6s cubic-bezier(.16, 1, .3, 1); }
-  .quadro:hover img { transform: scale(1.03); }
-  .quadro .dentro { position: relative; padding: 26px; background: linear-gradient(to top, rgba(10, 9, 10, .94), rgba(10, 9, 10, 0)); }
-  .quadro h3 { font: 700 23px/1.2 var(--titulo); color: var(--realce); margin: 0 0 6px; }
-  .quadro p { margin: 0; font-size: 16px; color: var(--texto); max-width: 46ch; }
-  .q1 { grid-column: span 4; grid-row: span 2; }
-  .q2 { grid-column: span 2; }
-  .q3 { grid-column: span 2; background: linear-gradient(160deg, #2a0d0c, #120c0d 70%); }
-  .q4 { grid-column: span 3; }
-  .q5 { grid-column: span 3; }
-  .numero { font: 700 64px/1 var(--titulo); color: var(--sangue-claro); margin-bottom: 4px; }
+  /* a pilha da lanterna */
+  .pilha { display: flex; align-items: center; gap: 14px; font-size: 15px; font-weight: 600; letter-spacing: .08em; color: var(--texto-fraco); }
+  .pilha .caixa { width: 150px; height: 12px; border: 1px solid #6c675e; padding: 2px; }
+  .pilha .carga { width: 35%; height: 100%; background: var(--pilha); }
+  .resumo { padding-top: 96px; padding-bottom: 72px; display: flex; flex-direction: column; gap: 22px; align-items: flex-start; }
+  .resumo h2 { font-weight: 700; font-size: clamp(36px, 5vw, 52px); line-height: 1.08; max-width: 18ch; }
+  .resumo p { margin: 0; font-size: 19px; line-height: 1.7; max-width: 58ch; }
 
-  /* como instalar: lista vertical numerada */
-  .passos { list-style: none; padding: 0; margin: 32px 0 0; display: grid; gap: 0; max-width: 760px; counter-reset: passo; }
-  .passos li { counter-increment: passo; display: grid; grid-template-columns: 64px 1fr; gap: 8px; padding: 22px 0; border-top: 1px solid var(--linha); }
-  .passos li:first-child { border-top: 0; }
-  .passos li::before { content: counter(passo); font: 700 34px/1 var(--titulo); color: var(--sangue-claro); }
-  .passos strong { color: var(--realce); display: block; font-size: 18px; margin-bottom: 2px; }
-  .passos p { margin: 0; color: var(--texto); }
-  kbd { font: 600 14px var(--corpo); background: #221f21; border: 1px solid var(--linha); border-radius: 4px; padding: 1px 7px; color: var(--realce); }
+  /* três quadros, cada um sob a própria lanterna */
+  .quadros { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 28px; padding-bottom: 96px; }
+  .quadros article { display: flex; flex-direction: column; gap: 16px; }
+  .quadros .foto { position: relative; aspect-ratio: 4 / 5; overflow: hidden; border-radius: var(--raio); }
+  .quadros .foto img { width: 100%; height: 100%; object-fit: cover; }
+  .quadros .foto::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at var(--cx, 45%) var(--cy, 45%), rgba(7,8,10,0) 0, rgba(7,8,10,.2) 110px, rgba(7,8,10,.95) 260px); }
+  .quadros h3 { font-size: 27px; }
+  .quadros p { margin: 0; font-size: 17px; }
 
-  /* do que precisa: duas colunas simples */
-  .precisa { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 24px; max-width: 900px; }
-  .precisa div { border-left: 3px solid var(--sangue); padding-left: 20px; }
-  .precisa h3 { font: 700 20px/1.2 var(--titulo); color: var(--realce); margin: 0 0 8px; }
-  .precisa p { margin: 0; color: var(--texto); }
+  /* o código da sala */
+  .faixa { border-top: 1px solid var(--linha); border-bottom: 1px solid var(--linha); background: var(--fundo-2); }
+  .faixa .miolo { padding-top: 88px; padding-bottom: 88px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 48px; align-items: center; }
+  .faixa h2 { font-weight: 700; font-size: clamp(34px, 4.4vw, 46px); line-height: 1.1; }
+  .faixa p { margin: 16px 0 0; font-size: 18px; max-width: 46ch; }
+  .codigo { display: flex; gap: 12px; flex-wrap: wrap; }
+  .codigo span { width: 88px; height: 110px; border: 1px solid #3b3c42; border-radius: var(--raio); display: flex; align-items: center; justify-content: center; font-family: "Playfair Display", Georgia, serif; font-weight: 900; font-size: 58px; color: var(--realce); }
+  .codigo span:last-child { border-color: var(--sangue); color: var(--sangue-claro); }
 
+  /* instalar */
+  .instalar { padding-top: 96px; padding-bottom: 96px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 56px; }
+  .instalar > div { display: flex; flex-direction: column; gap: 18px; align-items: flex-start; }
+  .instalar h2 { font-weight: 700; font-size: clamp(34px, 4.4vw, 46px); }
+  .instalar p { margin: 0; font-size: 17px; }
+  .passos { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 22px; font-size: 17px; }
+  .passos li { display: grid; grid-template-columns: 48px 1fr; gap: 8px; }
+  .passos b { font-family: "Playfair Display", Georgia, serif; font-size: 30px; line-height: 1.1; color: var(--sangue-claro); }
+  kbd { font: 600 15px "Barlow", sans-serif; background: #17181c; border: 1px solid #33343a; border-radius: 4px; padding: 1px 7px; color: var(--realce); white-space: nowrap; }
 
-  footer { border-top: 1px solid var(--linha); padding: 40px 0 56px; color: var(--texto-fraco); font-size: 15px; }
-  footer .miolo { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  footer { border-top: 1px solid var(--linha); }
+  footer .miolo { padding-top: 28px; padding-bottom: 48px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; font-size: 14px; color: #8b867b; }
 
-  /* entrar devagar ao rolar (só para quem não pediu menos movimento) */
+  /* entra devagar ao rolar (só para quem não pediu menos movimento) */
   @media (prefers-reduced-motion: no-preference) {
-    .aparece { opacity: 0; transform: translateY(24px); transition: opacity .8s cubic-bezier(.16, 1, .3, 1), transform .8s cubic-bezier(.16, 1, .3, 1); }
+    .aparece { opacity: 0; transform: translateY(24px); transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); }
     .aparece.vista { opacity: 1; transform: none; }
-    /* o título falha de vez em quando, como a lâmpada do menu do jogo */
-    .abertura h1 { animation: falha 7s infinite; }
-    @keyframes falha {
-      0%, 88%, 92%, 95%, 100% { opacity: 1; }
-      90% { opacity: .35; }
-      93.5% { opacity: .6; }
-    }
   }
-
-  @media (max-width: 860px) {
+  @media (max-width: 760px) {
+    .miolo { padding: 0 18px; }
     .topo nav { display: none; }
-    .abertura { grid-template-columns: 1fr; min-height: auto; padding-top: 32px; gap: 36px; }
-    .foto-abertura { transform: none; }
-    .historia img { aspect-ratio: 4 / 3; }
-    .historia .texto { position: relative; width: auto; background: var(--fundo-2); }
-    .grade { grid-template-columns: 1fr; grid-auto-rows: minmax(220px, auto); }
-    .q1, .q2, .q3, .q4, .q5 { grid-column: auto; grid-row: auto; }
-    .q1 { min-height: 320px; }
-    .precisa { grid-template-columns: 1fr; gap: 28px; }
-    .secao, .historia { margin-bottom: 80px; }
+    .abertura { min-height: 640px; }
+    .abertura .luz { background: radial-gradient(ellipse at 50% 42%, rgba(7,8,10,0) 0, rgba(7,8,10,.15) 140px, rgba(7,8,10,.9) 330px, var(--fundo) 480px); }
+    .codigo span { width: 56px; height: 72px; font-size: 38px; }
+    .resumo, .instalar { padding-top: 64px; padding-bottom: 64px; }
   }
 </style>
 </head>
 <body>
 
-<header class="miolo topo">
-  <a class="marca" href="#">NEXUS LTDA</a>
-  <nav>
-    <a href="#jogo">O jogo</a>
-    <a href="#instalar">Como instalar</a>
-    <a href="#precisa">Do que precisa</a>
-  </nav>
-</header>
-
-<main>
-  <section class="miolo abertura">
-    <div>
-      <h1>NEXUS<br>LTDA</h1>
-      <div class="risco"></div>
-      <p>O expediente acabou. Você não. Terror cooperativo num escritório à noite, com até 10 amigos.</p>
-      <div class="botoes">
-        <a class="botao principal" id="baixar" href="#instalar">Baixar o jogo</a>
-        <a class="botao leve" href="#instalar">Como instalar</a>
-      </div>
-      <p class="aviso-link" id="aviso-link" hidden>O link de download sai em breve.</p>
+<section class="abertura" id="topo">
+  <img src="img/abertura.jpg" width="1920" height="1080" alt="O funcionário da Nexus, emburrado, sozinho no escritório escuro debaixo da lâmpada" fetchpriority="high">
+  <div class="luz"></div>
+  <header class="miolo topo">
+    <a class="marca" href="#topo">NEXUS LTDA</a>
+    <nav>
+      <a href="#jogo">O jogo</a>
+      <a href="#instalar">Instalar</a>
+    </nav>
+  </header>
+  <div class="miolo chamada">
+    <h1>NEXUS<br>LTDA</h1>
+    <p>O expediente acabou. Você não.</p>
+    <div class="botoes">
+      <a class="botao principal" data-baixar href="#instalar">Baixar o jogo</a>
+      <a class="botao leve" href="#jogo">O que é</a>
     </div>
-    <div class="foto-abertura aparece">
-      <img src="img/blk.jpg" width="1600" height="900" alt="O Blk, o ceifador do RH, com a foice no meio do escritório escuro" fetchpriority="high">
-    </div>
-  </section>
+  </div>
+</section>
 
-  <section class="miolo">
-    <div class="historia aparece">
-      <img src="img/relogio.jpg" width="1216" height="738" alt="O relógio da parede da Nexus batendo 18 horas" loading="lazy">
-      <div class="texto">
-        <h2>Sexta-feira. Fechamento do mês.</h2>
-        <p>Dezoito horas e a equipe ainda está nas mesas. Ninguém lembra mais do Blk, o funcionário mais antigo da casa, que passou mal sozinho no banheiro numa sexta como esta. O ponto dele continua batendo. A energia cai, o prédio tranca, e quem ficou depois das 18h não sai mais.</p>
-      </div>
-    </div>
-  </section>
+<section class="miolo resumo aparece" id="jogo">
+  <div class="pilha"><div class="caixa"><div class="carga"></div></div>LANTERNA</div>
+  <h2>Ele não gosta de luz. A pilha acaba.</h2>
+  <p>Sexta-feira, fechamento do mês. Às 18h a energia cai e o prédio da Nexus tranca com a equipe dentro. Religue o prédio e chegue ao elevador do térreo. Com até 10 amigos, no escuro, com o Blk à solta.</p>
+</section>
 
-  <section class="miolo secao" id="jogo">
-    <h2>O que tem lá dentro</h2>
-    <div class="grade">
-      <article class="quadro q1 aparece">
-        <img src="img/boneco.jpg" width="960" height="900" alt="O boneco funcionário da Nexus, que cada um pinta com as suas cores" loading="lazy">
-        <div class="dentro">
-          <h3>Até 10 amigos, pelo código da sala</h3>
-          <p>Quem cria a sala recebe um código de 5 letras. Os amigos digitam e entram. Sem programa extra, sem abrir porta no roteador.</p>
-        </div>
-      </article>
-      <article class="quadro q2 aparece">
-        <img src="img/blk.jpg" width="1600" height="900" alt="" loading="lazy">
-        <div class="dentro">
-          <h3>Ele não gosta de luz</h3>
-          <p>Mas a pilha da lanterna acaba. Quando as luzes apagam, ele caça.</p>
-        </div>
-      </article>
-      <article class="quadro q3 aparece">
-        <div class="dentro">
-          <div class="numero">5</div>
-          <h3>andares para religar</h3>
-          <p>Gasolina no gerador, fusíveis no quadro, a senha do cofre e duas alavancas ao mesmo tempo.</p>
-        </div>
-      </article>
-    </div>
-  </section>
+<section class="miolo quadros">
+  <article class="aparece">
+    <div class="foto" style="--cx: 40%; --cy: 45%"><img src="img/relogio.jpg" width="1216" height="738" alt="O relógio da parede batendo 18 horas" loading="lazy" style="object-position: 30% 50%"></div>
+    <h3>O ponto dele continua batendo</h3>
+    <p>15 anos sem férias. Numa sexta como esta, o Blk passou mal sozinho no banheiro. Ninguém percebeu.</p>
+  </article>
+  <article class="aparece">
+    <div class="foto" style="--cx: 45%; --cy: 50%"><img src="img/equipe.jpg" width="1600" height="639" alt="A equipe da Nexus nas mesas às 18h" loading="lazy" style="object-position: 35% 50%"></div>
+    <h3>Ninguém fica para trás</h3>
+    <p>Quem cai só levanta se um colega segurar a mão. Esconda-se nos armários, mas não deixe ele ver você entrando.</p>
+  </article>
+  <article class="aparece">
+    <div class="foto" style="--cx: 55%; --cy: 42%"><img src="img/blk.jpg" width="1440" height="756" alt="O Blk, de foice, no escritório escuro" loading="lazy" style="object-position: 62% 40%"></div>
+    <h3>Fale baixo</h3>
+    <p>O jogo escuta o seu microfone, e ele também. Use fone de ouvido para saber de onde vêm os passos.</p>
+  </article>
+</section>
 
-  <section class="miolo secao" id="instalar">
-    <h2>Como instalar</h2>
-    <ol class="passos">
-      <li><div><strong>Baixe o arquivo</strong><p>Clique em Baixar o jogo. Abre a pasta do Google Drive: baixe o .zip de uns 180 MB.</p></div></li>
-      <li><div><strong>Descompacte</strong><p>Botão direito no arquivo, Extrair tudo. Não precisa instalar nada.</p></div></li>
-      <li><div><strong>Abra o NEXUS LTDA.exe</strong><p>O Windows vai avisar que protegeu o computador, porque o jogo não tem assinatura paga. Clique em <kbd>Mais informações</kbd> e depois em <kbd>Executar assim mesmo</kbd>.</p></div></li>
-      <li><div><strong>Jogue com a galera</strong><p>Jogar com amigos, Criar sala, e passe o código. Quem entra vai em Jogar com amigos, digita o código e clica em Entrar.</p></div></li>
-    </ol>
-  </section>
-
-  <section class="miolo secao" id="precisa">
-    <h2>Do que precisa</h2>
-    <div class="precisa">
-      <div>
-        <h3>Computador</h3>
-        <p>Windows 10 ou 11, 64 bits, com placa de vídeo dedicada. O jogo é 3D e roda melhor com uma GTX 1650 ou parecida.</p>
-      </div>
-      <div>
-        <h3>Fone e microfone</h3>
-        <p>Use fone de ouvido. O microfone é opcional, mas se você gritar perto dele, ele ouve. Dá para testar nas Opções do jogo.</p>
-      </div>
+<section class="faixa">
+  <div class="miolo">
+    <div class="aparece">
+      <h2>Chame a equipe com um código.</h2>
+      <p>Quem cria a sala recebe 5 letras. Os outros digitam e entram, pela internet, sem programa extra e sem abrir porta no roteador. Até 10 pessoas.</p>
     </div>
-  </section>
-</main>
+    <div class="codigo aparece" role="img" aria-label="Exemplo de código da sala: NX4K7">
+      <span>N</span><span>X</span><span>4</span><span>K</span><span>7</span>
+    </div>
+  </div>
+</section>
+
+<section class="miolo instalar" id="instalar">
+  <div class="aparece">
+    <h2>Baixe, extraia, abra.</h2>
+    <p>Windows 10 ou 11 (64 bits) com placa de vídeo dedicada. Fone de ouvido. Microfone opcional (dá para testar nas Opções do jogo).</p>
+    <a class="botao principal" data-baixar href="#instalar">Baixar o jogo (180 MB)</a>
+  </div>
+  <ol class="passos aparece">
+    <li><b>1</b><span>O botão abre a pasta do Google Drive: baixe o .zip. Depois, botão direito nele, <kbd>Extrair tudo</kbd>. Não precisa instalar nada.</span></li>
+    <li><b>2</b><span>Abra o NEXUS LTDA.exe. Se o Windows avisar que protegeu o computador, clique em <kbd>Mais informações</kbd> e depois em <kbd>Executar assim mesmo</kbd>.</span></li>
+    <li><b>3</b><span>Jogar com amigos, Criar sala, e mande o código no grupo.</span></li>
+  </ol>
+</section>
 
 <footer>
   <div class="miolo">
     <span>NEXUS LTDA, um jogo de Nycolas.</span>
-    <span>Feito com Godot.</span>
+    <span>Bom fim de semana. Se você sair.</span>
   </div>
 </footer>
 
 <script>
-  // o link do jogo (Google Drive). Vazio: o botão avisa que sai em breve.
+  // o link do jogo (a pasta do Google Drive). Vazio: o botão leva para o passo a passo.
   const LINK_DO_JOGO = "https://drive.google.com/drive/folders/1cuqf0NkowHuZAD4RwKuX0kGd6hXfayMh?usp=sharing";
-
-  const baixar = document.getElementById("baixar");
   if (LINK_DO_JOGO) {
-    baixar.href = LINK_DO_JOGO;
-    baixar.target = "_blank";
-    baixar.rel = "noopener";
-  } else {
-    baixar.setAttribute("aria-disabled", "true");
-    baixar.addEventListener("click", (e) => {
-      e.preventDefault();
-      document.getElementById("aviso-link").hidden = false;
+    document.querySelectorAll("[data-baixar]").forEach((a) => {
+      a.href = LINK_DO_JOGO;
+      a.target = "_blank";
+      a.rel = "noopener";
+    });
+  }
+
+  // a lanterna da abertura segue o mouse (devagar, como a mão tremendo); parada para quem pediu menos movimento
+  const abertura = document.querySelector(".abertura");
+  const calmo = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!calmo && window.matchMedia("(pointer: fine)").matches) {
+    let alvoX = 50, alvoY = 48, x = 50, y = 48, andando = false;
+    const passo = () => {
+      x += (alvoX - x) * 0.08;
+      y += (alvoY - y) * 0.08;
+      abertura.style.setProperty("--luz-x", x + "%");
+      abertura.style.setProperty("--luz-y", y + "%");
+      andando = Math.abs(alvoX - x) > 0.1 || Math.abs(alvoY - y) > 0.1;
+      if (andando) requestAnimationFrame(passo);
+    };
+    abertura.addEventListener("pointermove", (e) => {
+      const r = abertura.getBoundingClientRect();
+      alvoX = ((e.clientX - r.left) / r.width) * 100;
+      alvoY = ((e.clientY - r.top) / r.height) * 100;
+      if (!andando) { andando = true; requestAnimationFrame(passo); }
     });
   }
 
