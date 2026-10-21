@@ -176,7 +176,7 @@
     <a class="botao principal" data-baixar href="#instalar">Baixar o jogo (180 MB)</a>
   </div>
   <ol class="passos aparece">
-    <li><b>1</b><span>O botão abre a pasta do Google Drive: baixe o .zip. Depois, botão direito nele, <kbd>Extrair tudo</kbd>. Não precisa instalar nada.</span></li>
+    <li><b>1</b><span>O botão já baixa o .zip. Botão direito nele, <kbd>Extrair tudo</kbd>. Não precisa instalar nada.</span></li>
     <li><b>2</b><span>Abra o NEXUS LTDA.exe. Se o Windows avisar que protegeu o computador, clique em <kbd>Mais informações</kbd> e depois em <kbd>Executar assim mesmo</kbd>.</span></li>
     <li><b>3</b><span>Jogar com amigos, Criar sala, e mande o código no grupo.</span></li>
   </ol>
@@ -190,13 +190,11 @@
 </footer>
 
 <script>
-  // o link do jogo (a pasta do Google Drive). Vazio: o botão leva para o passo a passo.
-  const LINK_DO_JOGO = "https://drive.google.com/drive/folders/1cuqf0NkowHuZAD4RwKuX0kGd6hXfayMh?usp=sharing";
+  // o link do jogo: clicou, baixou. Vazio: o botão leva para o passo a passo.
+  const LINK_DO_JOGO = "https://github.com/SanNyck/nexus-ltda/releases/latest/download/NEXUS-LTDA.zip";   // (sempre a última versão: o .zip da versão mais nova do GitHub)
   if (LINK_DO_JOGO) {
     document.querySelectorAll("[data-baixar]").forEach((a) => {
       a.href = LINK_DO_JOGO;
-      a.target = "_blank";
-      a.rel = "noopener";
     });
   }
 
